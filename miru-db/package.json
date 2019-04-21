@@ -1,0 +1,20 @@
+{
+  "name": "miru-db",
+  "version": "0.1.0",
+  "private": true,
+  "description": "DB Module for Miru, an app to share and watch animated content.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omarefg/miru.git"
+  },
+  "author": "Omar Flores Grimontt <omarefg92@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/omarefg/miru/issues"
+  },
+  "homepage": "https://github.com/omarefg/miru#readme"
+}
