@@ -1,0 +1,20 @@
+{
+  "name": "miru-utils",
+  "version": "1.0.0",
+  "description": "Global tools for miru",
+  "private": true,
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omarefg/miru.git"
+  },
+  "author": "Omar Flores Grimontt <omarefg92@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/omarefg/miru/issues"
+  },
+  "homepage": "https://github.com/omarefg/miru#readme",
+  "devDependencies": {
+    "chalk": "^2.4.2"
+  }
+}
