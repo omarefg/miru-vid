@@ -10,7 +10,7 @@ const { handleFatalError } = utils.request
 
 const api = require('./api')
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3020
 const app = express()
 const server = http.createServer(app)
 
