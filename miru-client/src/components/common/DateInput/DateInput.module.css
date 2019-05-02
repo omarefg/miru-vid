@@ -1,0 +1,23 @@
+.container {
+    position: relative;
+    margin-bottom: 20px;
+    color: #2f2f2f;
+}
+
+.input {
+    border-radius: 5px;
+    border: 0;
+    outline: none;
+    width: calc(100% - 16px);
+    padding: 22px 8px;
+    font-size: 1em;
+}
+
+.label {
+    color: black;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 12px;
+    font-weight: 300;
+}

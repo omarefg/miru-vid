@@ -1,10 +1,10 @@
-const initialState = {};
+const initialState = {}
 
 const home = (state = initialState, action) => {
     switch(action.type) {
     default: 
-        return state;
+        return state
     }
 };
 
-export default home;
+export default home

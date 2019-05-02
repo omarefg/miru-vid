@@ -1,0 +1,45 @@
+.container {
+    position: relative;
+    margin-bottom: 20px;
+    color: #2f2f2f;
+}
+
+.input {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 0;
+    height: 50px;
+    outline: none;
+    width: calc(100% - 16px);
+    padding: 5px 8px;
+    font-size: 1em;
+}
+
+.label {
+    position: absolute;
+    left: 10%;
+    top: calc(50% - 9px);
+    font-size: 16px;
+    cursor: text;
+    font-weight: bold;
+    transition: .3s;
+}
+
+.placeholder {
+    position: absolute;
+    cursor: text;
+    top: 5px;
+    left: 5px;
+    font-size: 12px;
+    transition: .3s;
+    font-weight: 300;
+}
+
+.input:focus ~ .label {
+    top: 5px;
+    left: 5px;
+    font-size: 12px;
+    transition: .3s;
+    font-weight: 300;
+}

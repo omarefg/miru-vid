@@ -39,13 +39,14 @@ api.get('/users', async (req, res, next) => {
 })
 
 api.post('/user', async (req, res, next) => {
-  let body
+  console.log(req.body)
+  let user
   try {
-    body = await User.createUser(req.body)
+    user = await User.createUser(req.body)
   } catch (error) {
     return next(error)
   }
-  res.status(200).send(body)
+  res.status(200).send(user)
 })
 
 module.exports = api
