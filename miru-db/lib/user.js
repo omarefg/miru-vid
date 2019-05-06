@@ -25,12 +25,17 @@ module.exports = function setupUser (UserModel) {
     const cond = { where: { username: user.username, password: user.password } }
     return UserModel.findOne(cond)
   }
+  function findByEmail (email) {
+    const cond = { where: { email } }
+    return UserModel.findAll(cond)
+  }
   return {
     findById,
     createUser,
     updateUser,
     findAll,
     findByUsername,
-    findByUsernameAndPassword
+    findByUsernameAndPassword,
+    findByEmail
   }
 }

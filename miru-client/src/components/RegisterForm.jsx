@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, TextInput, FormLayout, DateInput } from './common'
+import { Form, TextInput, FormLayout, DateInput, ErrorText } from './common'
 
 export class RegisterForm extends Component {
 
@@ -66,6 +66,9 @@ export class RegisterForm extends Component {
                         type='password'
                         required
                     />
+                    {this.props.error &&
+                        <ErrorText error={this.props.error}/>
+                    }
                 </Form>
             </FormLayout>
         )

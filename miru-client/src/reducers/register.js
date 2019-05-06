@@ -1,12 +1,15 @@
 import * as actions from '../actions/types'
 
 const initialState = {
-    name: '',
-    lastname: '',
-    birthday: '',
-    email: '',
-    username: '',
-    password: ''
+    user: {
+        name: '',
+        lastname: '',
+        birthday: '',
+        email: '',
+        username: '',
+        password: ''
+    },
+    error: ''
 }
 
 const login = (state = initialState, action) => {
@@ -14,34 +17,58 @@ const login = (state = initialState, action) => {
         case actions.CHANGE_REGISTER_USERNAME: {
             return {
                 ...state,
-                ...action.payload
+                user: {
+                    ...state.user,
+                    ...action.payload
+                }
             }
         }
         case actions.CHANGE_REGISTER_PASSWORD: {
             return {
                 ...state,
-                ...action.payload
+                user: {
+                    ...state.user,
+                    ...action.payload
+                }
             }
         }
         case actions.CHANGE_NAME: {
             return {
                 ...state,
-                ...action.payload
+                user: {
+                    ...state.user,
+                    ...action.payload
+                }
             }
         }
         case actions.CHANGE_LASTNAME: {
             return {
                 ...state,
-                ...action.payload
+                user: {
+                    ...state.user,
+                    ...action.payload
+                }
             }
         }
         case actions.CHANGE_BIRTHDAY: {
             return {
                 ...state,
-                ...action.payload
+                user: {
+                    ...state.user,
+                    ...action.payload
+                }
             }
         }
         case actions.CHANGE_EMAIL: {
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    ...action.payload
+                }
+            }
+        }
+        case actions.ERROR_IN_NEW_USER: {
             return {
                 ...state,
                 ...action.payload

@@ -39,8 +39,14 @@ api.get('/users', async (req, res, next) => {
 })
 
 api.post('/user', async (req, res, next) => {
-  console.log(req.body)
   let user
+  let email = []
+  let username = []
+  email = await User.findByEmail(req.body.email)
+  username = await User.findByUsername(req.body.username)
+  if (email.length || username.length) {
+    return next(new Error('El usuario o el email ya están en uso'))
+  }
   try {
     user = await User.createUser(req.body)
   } catch (error) {

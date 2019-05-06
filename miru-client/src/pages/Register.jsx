@@ -11,20 +11,21 @@ class RegisterPage extends Component {
             <RegisterLayout>
                 <Hat title='Miru - Regístrate'/>
                 <RegisterForm
-                    username={this.props.username}
+                    username={this.props.user.username}
                     changeUsername={this.props.actions.changeRegisterUsername}
-                    password={this.props.password}
+                    password={this.props.user.password}
                     changePassword={this.props.actions.changeRegisterPassword}
-                    name={this.props.name}
+                    name={this.props.user.name}
                     changeName={this.props.actions.changeName}
-                    lastname={this.props.lastname}
+                    lastname={this.props.user.lastname}
                     changeLastname={this.props.actions.changeLastname}
-                    birthday={this.props.birthday}
+                    birthday={this.props.user.birthday}
                     changeBirthday={this.props.actions.changeBirthday}
-                    email={this.props.email}
+                    email={this.props.user.email}
                     changeEmail={this.props.actions.changeEmail}
                     registerNewUser={this.props.actions.registerNewUser}
                     user={this.props.user}
+                    error={this.props.error}
                 />
             </RegisterLayout>
         )
@@ -34,7 +35,7 @@ class RegisterPage extends Component {
 const mapStateToProps = state => {
     return {
         ...state.register,
-        user: {...state.register}
+        user: {...state.register.user}
     }
 }
 
