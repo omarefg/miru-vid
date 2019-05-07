@@ -28,10 +28,9 @@ api.use('*', async (req, res, next) => {
   next()
 })
 
-api.get('/users', async (req, res, next) => {
-  let users = []
+api.get('/user', async (req, res, next) => {
   try {
-    users = await User.findAll()
+    users = await User()
   } catch (error) {
     return next(error)
   }
