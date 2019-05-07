@@ -9,10 +9,12 @@ export class RegisterForm extends Component {
     changeLastname = event => this.props.changeLastname(event.target.value)
     changeEmail = event => this.props.changeEmail(event.target.value)
     changeBirthday = event => this.props.changeBirthday(event.target.value)
-    registerNewUser = event => {
+    registerNewUser = async event => {
         event.preventDefault()
-        const user = {...this.props.user}
-        this.props.registerNewUser(user)
+        let user = {...this.props.user}
+        user = await this.props.registerNewUser(user)
+        localStorage.setItem('miru-session', JSON.stringify(user))
+        window.location.reload()
     }
 
     render() { 
@@ -43,6 +45,9 @@ export class RegisterForm extends Component {
                         value={this.props.birthday}
                         onChange={this.changeBirthday}
                     />
+                    {this.props.emailError &&
+                        <ErrorText error={this.props.emailError}/>
+                    }
                     <TextInput
                         id='email'
                         placeholder='Email'
@@ -51,6 +56,9 @@ export class RegisterForm extends Component {
                         type='email'
                         required
                     />
+                    {this.props.usernameError &&
+                        <ErrorText error={this.props.usernameError}/>
+                    }
                     <TextInput
                         id='username'
                         placeholder='Nombre de usuario'
@@ -66,9 +74,6 @@ export class RegisterForm extends Component {
                         type='password'
                         required
                     />
-                    {this.props.error &&
-                        <ErrorText error={this.props.error}/>
-                    }
                 </Form>
             </FormLayout>
         )

@@ -25,7 +25,8 @@ class RegisterPage extends Component {
                     changeEmail={this.props.actions.changeEmail}
                     registerNewUser={this.props.actions.registerNewUser}
                     user={this.props.user}
-                    error={this.props.error}
+                    usernameError={this.props.error.usernameError}
+                    emailError={this.props.error.emailError}
                 />
             </RegisterLayout>
         )

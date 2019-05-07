@@ -71,7 +71,9 @@ const login = (state = initialState, action) => {
         case actions.ERROR_IN_NEW_USER: {
             return {
                 ...state,
-                ...action.payload
+                error: {
+                    ...action.payload
+                }
             }
         }
         default: 
