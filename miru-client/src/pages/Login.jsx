@@ -12,8 +12,12 @@ class LoginPage extends Component {
                 <LoginForm
                     username={this.props.username}
                     password={this.props.password}
+                    notConfirmedError={this.props.error.notConfirmedError}
+                    usernameError={this.props.error.usernameError}
+                    passwordError={this.props.error.passwordError}
                     changeUsername={this.props.actions.changeLoginUsername}
                     changePassword={this.props.actions.changeLoginPassword}
+                    login={this.props.actions.login}
                 />
             </LoginLayout>
         )

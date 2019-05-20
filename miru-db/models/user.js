@@ -30,6 +30,10 @@ module.exports = function setupUserModel (config) {
     password: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    confirmed: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
     }
   })
 }

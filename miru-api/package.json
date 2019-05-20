@@ -30,7 +30,9 @@
   "dependencies": {
     "debug": "^4.1.1",
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
     "miru-db": "file:../miru-db",
-    "miru-utils": "file:../miru-utils"
+    "miru-utils": "file:../miru-utils",
+    "nodemailer": "^6.1.1"
   }
 }

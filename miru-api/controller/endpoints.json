@@ -1,0 +1,20 @@
+{
+    "user": {
+        "path": "user",
+        "urls": [
+            {
+                "url": "/user",
+                "post": "create"
+            },
+            {
+                "url": "/user/login",
+                "post": "login"
+            },
+            {
+                "url": "/user/confirmation/:token",
+                "get": "confirmRegisteredUser"
+            }
+        ],
+        "model": "User"
+    }
+}

@@ -2,7 +2,11 @@ import * as actions from '../actions/types'
 
 const initialState = {
     username: '',
-    password: ''
+    password: '',
+    error: {
+        usernameError: '',
+        passwordError: ''
+    }
 }
 
 const login = (state = initialState, action) => {
@@ -17,6 +21,14 @@ const login = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.payload
+            }
+        }
+        case actions.ERROR_IN_USER_LOGIN: {
+            return {
+                ...state,
+                error: {
+                    ...action.payload
+                }
             }
         }
         default: 

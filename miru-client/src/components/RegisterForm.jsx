@@ -12,9 +12,12 @@ export class RegisterForm extends Component {
     registerNewUser = async event => {
         event.preventDefault()
         let user = {...this.props.user}
-        user = await this.props.registerNewUser(user)
-        localStorage.setItem('miru-session', JSON.stringify(user))
-        window.location.reload()
+        this.props.registerNewUser(user)
+            .then(user => {
+                localStorage.setItem('miru-session', JSON.stringify(user))
+                window.location.reload()
+            })
+            .catch(error => console.log(error.response))
     }
 
     render() { 

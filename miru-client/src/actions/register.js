@@ -73,5 +73,6 @@ export const registerNewUser = user => async dispatch => {
                 emailError: error.response.data.email ? 'El email ya está en uso' : '',
             }
         })
+        throw error
     }
 }
