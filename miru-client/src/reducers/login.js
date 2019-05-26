@@ -6,7 +6,8 @@ const initialState = {
     error: {
         usernameError: '',
         passwordError: ''
-    }
+    },
+    successMessage: ''
 }
 
 const login = (state = initialState, action) => {
@@ -31,6 +32,12 @@ const login = (state = initialState, action) => {
                 }
             }
         }
+        case actions.CHANGE_SUCCESS_MESSAGE: {
+            return {
+                ...state,
+                ...action.payload
+            }
+        }        
         default: 
             return state
         }

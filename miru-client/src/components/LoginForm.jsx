@@ -24,6 +24,9 @@ export class LoginForm extends Component {
                     button='Inicia Sesión'
                     onSubmit={this.login}
                 >
+                    {this.props.successMessage &&
+                        <ErrorText error={this.props.successMessage}/>
+                    }
                     {this.props.notConfirmedError &&
                         <ErrorText error={this.props.notConfirmedError}/>
                     }

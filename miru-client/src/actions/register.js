@@ -58,13 +58,18 @@ export const changeEmail = email => {
 
 export const registerNewUser = user => async dispatch => {
     try {
-        let res = await axios.request({
+        await axios.request({
             responseType: 'json',
             url: URL + '/user',
             method: 'post',
             data: user
         })
-        return res.data
+        return dispatch({
+            type: actions.CHANGE_SUCCESS_MESSAGE,
+            payload: {
+                successMessage: 'Gracias por registrarte. Ahora por favor confirma tu correo para poder iniciar sesión'
+            }
+        })
     } catch (error) {
         dispatch({
             type: actions.ERROR_IN_NEW_USER,

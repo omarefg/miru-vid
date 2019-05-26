@@ -17,10 +17,10 @@ const mailOptions = url => ({
     `
 })
 
-const create = (User, debug) => async (req, res, next) => {
+const create = (services, debug) => async (req, res, next) => {
     let user, email, username
-    email = await User.findByEmail(req.body.email)
-    username = await User.findByUsername(req.body.username)
+    email = await services.User.findByEmail(req.body.email)
+    username = await services.User.findByUsername(req.body.username)
     if (email.length || username.length) {
         return res.status(500).jsonp({
             username: username.length > 0,
@@ -28,13 +28,13 @@ const create = (User, debug) => async (req, res, next) => {
         })
     }
     try {
-        user = await User.createUser(req.body)
+        user = await services.User.createUser(req.body)
         jwt.sign({
                 id: user.id
             },
                 EMAIL_SECRET,
             {
-                expiresIn: 300
+                expiresIn: 259200
             },
             (error, emailToken) => {
                 const url = `http://localhost:3020/miru/user/confirmation/${emailToken}`
@@ -48,13 +48,13 @@ const create = (User, debug) => async (req, res, next) => {
     res.status(200).send(user)
 }
 
-const login = (User, debug) => async (req, res, next) => {
+const login = (services, debug) => async (req, res, next) => {
     let user, username, password
     let errors = { notConfirmed: false, username: false, password: false }
     try {
-      user = await User.findByUsernameAndPassword(req.body)
-      username = await User.findByUsername(req.body.username)
-      password = await User.findByPassword(req.body.password)
+      user = await services.User.findByUsernameAndPassword(req.body)
+      username = await services.User.findByUsername(req.body.username)
+      password = await services.User.findByPassword(req.body.password)
       if (user && !user.confirmed) { errors.notConfirmed = true }
       if (!username.length) { errors.username = true }
       if (!password.length) { errors.password = true }
@@ -67,10 +67,10 @@ const login = (User, debug) => async (req, res, next) => {
     res.status(200).send(user)
 }
 
-const confirmRegisteredUser = (User, debug) => async (req, res, next) => {
+const confirmRegisteredUser = (services, debug) => async (req, res, next) => {
     try {
       const { id } = jwt.verify(req.params.token, EMAIL_SECRET)
-      await User.updateUser({ id, confirmed: true })
+      await services.User.updateUser({ id, confirmed: true })
       return res.redirect('http://localhost:3000/inicia-sesion')
     } catch (error) {
       return next(error)

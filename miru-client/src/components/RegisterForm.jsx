@@ -14,8 +14,7 @@ export class RegisterForm extends Component {
         let user = {...this.props.user}
         this.props.registerNewUser(user)
             .then(user => {
-                localStorage.setItem('miru-session', JSON.stringify(user))
-                window.location.reload()
+                this.props.history.push('/inicia-sesion')
             })
             .catch(error => console.log(error.response))
     }

@@ -18,6 +18,7 @@ class LoginPage extends Component {
                     changeUsername={this.props.actions.changeLoginUsername}
                     changePassword={this.props.actions.changeLoginPassword}
                     login={this.props.actions.login}
+                    successMessage={this.props.successMessage}
                 />
             </LoginLayout>
         )

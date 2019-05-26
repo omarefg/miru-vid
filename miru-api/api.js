@@ -20,23 +20,22 @@ const startRouter = () => {
         for (let endpoint in endpoints) {
             const controller = controllers[endpoint]
             const urls = endpoints[endpoint].urls
-            const model = endpoints[endpoint].model
             for (let url of urls) {
                 const getMethod = controller[url.get]
                 const postMethod = controller[url.post]
                 const putMethod = controller[url.put]
                 const deleteMethod = controller[url.delete]
                 if (getMethod) {
-                    api.get(url.url, getMethod(services[model], debug))
+                    api.get(url.url, getMethod(services, debug))
                 }
                 if (postMethod) {
-                    api.post(url.url, postMethod(services[model], debug))
+                    api.post(url.url, postMethod(services, debug))
                 }
                 if (putMethod) {
-                    api.put(url.url, putMethod(services[model], debug))
+                    api.put(url.url, putMethod(services, debug))
                 }
                 if (deleteMethod) {
-                    api.delete(url.url, deleteMethod(services[model], Debug))
+                    api.delete(url.url, deleteMethod(services, Debug))
                 }
             }
         }
