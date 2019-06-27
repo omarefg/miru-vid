@@ -23,7 +23,8 @@ const setupUserModel = UserModel => {
     }
 
     const findByUsernameAndPassword = user => {
-        const cond = { where: { username: user.username, password: user.password } }
+        const { username, password } = user
+        const cond = { where: { username, password } }
         return UserModel.findOne(cond)
     }
 

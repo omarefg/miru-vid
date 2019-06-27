@@ -22,7 +22,7 @@ const users = [
         lastname: 'mercado',
         username: 'dulceamr',
         email: 'dulceamr@gmail.com',
-        password: '12345'
+        password: '54321'
     }),
     extend(user, {
         id: 3,
@@ -30,7 +30,7 @@ const users = [
         lastname: 'grimontt',
         username: 'egrimontt',
         email: 'egrimontt@gmail.com',
-        password: '12345'
+        password: '159357'
     }),
     extend(user, {
         id: 4,
@@ -38,7 +38,7 @@ const users = [
         lastname: 'ruiz',
         username: 'aruiz',
         email: 'aruiz@gmail.com',
-        password: '12345'
+        password: '357951'
     })
 ]
 
@@ -50,11 +50,14 @@ const findByUsernameAndPassword = user => users.filter(u => u.username === user.
 
 const findByEmail = email => users.filter(user => user.email === email)
 
+const findByPassword = password => users.filter(user => user.password === password)
+
 module.exports = {
     single: user,
     all: users,
     findById,
     findByUsername,
     findByUsernameAndPassword,
-    findByEmail
+    findByEmail,
+    findByPassword
 }
