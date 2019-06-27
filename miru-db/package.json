@@ -24,7 +24,7 @@
     "miru-utils": "file:../miru-utils",
     "pg": "^7.10.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^5.7.1"
+    "sequelize": "^6.0.0"
   },
   "devDependencies": {
     "ava": "^1.4.1",
