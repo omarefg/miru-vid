@@ -1,54 +1,52 @@
 'use strict'
 
-module.exports = function setupUser (UserModel) {
-  function findById (id) {
-    return UserModel.findByPk(id)
-  }
+const setupUserModel = UserModel => {
+    const findById = id => UserModel.findById(id)
 
-  async function updateUser (user) {
-    const cond = { where: { id: user.id } }
-    const existingUser = await UserModel.findByPk(user.id)
-    const updated = await UserModel.update(user, cond)
-    return updated ? UserModel.findByPk(user.id) : existingUser
-  }
+    const findAll = () => UserModel.findAll()
 
-  async function createUser (user) {
-    const result = await UserModel.create(user)
-    return result.toJSON()
-  }
+    const updateUser = async user => {
+        const cond = { where: { id: user.id } }
+        const existingUser = await UserModel.findById(user.id)
+        const updated = await UserModel.update(user, cond)
+        return updated ? UserModel.findById(user.id) : existingUser
+    }
 
-  function findAll () {
-    return UserModel.findAll()
-  }
+    const createUser = async user => {
+        const result = await UserModel.create(user)
+        return result.toJSON()
+    }
 
-  function findByUsername (username) {
-    const cond = { where: { username } }
-    return UserModel.findAll(cond)
-  }
-  
-  function findByUsernameAndPassword (user) {
-    const cond = { where: { username: user.username, password: user.password } }
-    return UserModel.findOne(cond)
-  }
+    const findByUsername = username => {
+        const cond = { where: { username } }
+        return UserModel.findAll(cond)
+    }
 
-  function findByEmail (email) {
-    const cond = { where: { email } }
-    return UserModel.findAll(cond)
-  }
+    const findByUsernameAndPassword = user => {
+        const cond = { where: { username: user.username, password: user.password } }
+        return UserModel.findOne(cond)
+    }
 
-  function findByPassword (password) {
-    const cond = { where: { password } }
-    return UserModel.findAll(cond)
-  }
-  
-  return {
-    findById,
-    createUser,
-    updateUser,
-    findAll,
-    findByUsername,
-    findByUsernameAndPassword,
-    findByEmail,
-    findByPassword
-  }
+    const findByEmail = email => {
+        const cond = { where: { email } }
+        return UserModel.findAll(cond)
+    }
+
+    const findByPassword = password => {
+        const cond = { where: { password } }
+        return UserModel.findAll(cond)
+    }
+
+    return {
+        findById,
+        createUser,
+        updateUser,
+        findAll,
+        findByUsername,
+        findByUsernameAndPassword,
+        findByEmail,
+        findByPassword
+    }
 }
+
+module.exports = setupUserModel

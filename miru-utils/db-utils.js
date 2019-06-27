@@ -9,5 +9,16 @@ module.exports = {
     dialect: 'postgres',
     logging,
     setup
-  })
+  }),
+  dbConfig: {
+    dialect: 'sqlite',
+    pool: {
+        max: 10,
+        min: 0,
+        idle: 10000
+    },
+    query: {
+        raw: true
+    }
+  }
 }
