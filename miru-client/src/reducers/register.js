@@ -13,72 +13,72 @@ const initialState = {
 }
 
 const login = (state = initialState, action) => {
-    switch(action.type) {
-        case actions.CHANGE_REGISTER_USERNAME: {
-            return {
-                ...state,
-                user: {
-                    ...state.user,
-                    ...action.payload
-                }
+    switch (action.type) {
+    case actions.CHANGE_REGISTER_USERNAME: {
+        return {
+            ...state,
+            user: {
+                ...state.user,
+                ...action.payload
             }
         }
-        case actions.CHANGE_REGISTER_PASSWORD: {
-            return {
-                ...state,
-                user: {
-                    ...state.user,
-                    ...action.payload
-                }
+    }
+    case actions.CHANGE_REGISTER_PASSWORD: {
+        return {
+            ...state,
+            user: {
+                ...state.user,
+                ...action.payload
             }
         }
-        case actions.CHANGE_NAME: {
-            return {
-                ...state,
-                user: {
-                    ...state.user,
-                    ...action.payload
-                }
+    }
+    case actions.CHANGE_NAME: {
+        return {
+            ...state,
+            user: {
+                ...state.user,
+                ...action.payload
             }
         }
-        case actions.CHANGE_LASTNAME: {
-            return {
-                ...state,
-                user: {
-                    ...state.user,
-                    ...action.payload
-                }
+    }
+    case actions.CHANGE_LASTNAME: {
+        return {
+            ...state,
+            user: {
+                ...state.user,
+                ...action.payload
             }
         }
-        case actions.CHANGE_BIRTHDAY: {
-            return {
-                ...state,
-                user: {
-                    ...state.user,
-                    ...action.payload
-                }
+    }
+    case actions.CHANGE_BIRTHDAY: {
+        return {
+            ...state,
+            user: {
+                ...state.user,
+                ...action.payload
             }
         }
-        case actions.CHANGE_EMAIL: {
-            return {
-                ...state,
-                user: {
-                    ...state.user,
-                    ...action.payload
-                }
+    }
+    case actions.CHANGE_EMAIL: {
+        return {
+            ...state,
+            user: {
+                ...state.user,
+                ...action.payload
             }
         }
-        case actions.ERROR_IN_NEW_USER: {
-            return {
-                ...state,
-                error: {
-                    ...action.payload
-                }
+    }
+    case actions.ERROR_IN_NEW_USER: {
+        return {
+            ...state,
+            error: {
+                ...action.payload
             }
         }
-        default: 
-            return state
-        }
+    }
+    default:
+        return state
+    }
 }
 
 export default login

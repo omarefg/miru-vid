@@ -2,7 +2,7 @@ import reducer from './reducers'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 
-let enhancer;
+let enhancer
 if (window.__REDUX_DEVTOOLS_EXTENSION__) {
     enhancer = compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__())
 } else {

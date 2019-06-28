@@ -2,13 +2,12 @@ import React, { Component } from 'react'
 import { Form, TextInput, FormLayout, ErrorText } from './common'
 
 export class LoginForm extends Component {
-
     changeUsername = event => this.props.changeUsername(event.target.value)
     changePassword = event => this.props.changePassword(event.target.value)
 
     login = event => {
         event.preventDefault()
-        let user = {username: this.props.username, password: this.props.password}
+        let user = { username: this.props.username, password: this.props.password }
         this.props.login(user)
             .then(user => {
                 localStorage.setItem('miru-session', JSON.stringify(user))
@@ -16,7 +15,7 @@ export class LoginForm extends Component {
             .catch(error => console.log(error.response))
     }
 
-    render() { 
+    render () {
         return (
             <FormLayout>
                 <Form

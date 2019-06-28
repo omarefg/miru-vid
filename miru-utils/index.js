@@ -5,7 +5,7 @@ const db = require('./db-utils')
 const general = require('./general-utils')
 
 module.exports = {
-  request: {...request},
-  db: {...db},
-  general: {...general}
+    request: { ...request },
+    db: { ...db },
+    general: { ...general }
 }

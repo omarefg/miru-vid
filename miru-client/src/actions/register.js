@@ -75,7 +75,7 @@ export const registerNewUser = user => async dispatch => {
             type: actions.ERROR_IN_NEW_USER,
             payload: {
                 usernameError: error.response.data.username ? 'El usuario ya está en uso' : '',
-                emailError: error.response.data.email ? 'El email ya está en uso' : '',
+                emailError: error.response.data.email ? 'El email ya está en uso' : ''
             }
         })
         throw error

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Form, TextInput, FormLayout, DateInput, ErrorText } from './common'
 
 export class RegisterForm extends Component {
-
     changeUsername = event => this.props.changeUsername(event.target.value)
     changePassword = event => this.props.changePassword(event.target.value)
     changeName = event => this.props.changeName(event.target.value)
@@ -11,7 +10,7 @@ export class RegisterForm extends Component {
     changeBirthday = event => this.props.changeBirthday(event.target.value)
     registerNewUser = async event => {
         event.preventDefault()
-        let user = {...this.props.user}
+        let user = { ...this.props.user }
         this.props.registerNewUser(user)
             .then(user => {
                 this.props.history.push('/inicia-sesion')
@@ -19,7 +18,7 @@ export class RegisterForm extends Component {
             .catch(error => console.log(error.response))
     }
 
-    render() { 
+    render () {
         return (
             <FormLayout>
                 <Form

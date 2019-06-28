@@ -6,7 +6,7 @@ import { Main } from './components/common'
 import './index.css'
 
 class App extends Component {
-    render() {
+    render () {
         return (
             <BrowserRouter>
                 <div>

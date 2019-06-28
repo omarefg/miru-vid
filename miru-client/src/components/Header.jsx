@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { HeaderLayout, To, RightAligner } from './common'
 import logo from '../assets/logo.png'
 export class Header extends Component {
-    render() { 
+    render () {
         return (
             <HeaderLayout>
                 <To

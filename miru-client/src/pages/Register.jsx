@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Hat, RegisterForm } from '../components'
 import { RegisterLayout } from '../components/layouts'
-import { bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
 
 class RegisterPage extends Component {
-    render() {
+    render () {
         return (
             <RegisterLayout>
                 <Hat title='Miru - Regístrate'/>
@@ -37,7 +37,7 @@ class RegisterPage extends Component {
 const mapStateToProps = state => {
     return {
         ...state.register,
-        user: {...state.register.user}
+        user: { ...state.register.user }
     }
 }
 

@@ -1,9 +1,12 @@
 {
-  "name": "miru-utils",
-  "version": "1.0.0",
-  "description": "Global tools for miru",
+  "name": "miru-business",
+  "version": "0.1.0",
   "private": true,
+  "description": "Business Module for Miru, an app to share and watch animated content.",
   "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/omarefg/miru.git"
@@ -15,12 +18,19 @@
   },
   "homepage": "https://github.com/omarefg/miru#readme",
   "devDependencies": {
-    "chalk": "^2.4.2",
     "eslint": "^5.16.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "debug": "^4.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "miru-db": "file:../miru-db",
+    "miru-utils": "file:../miru-utils",
+    "nodemailer": "^6.2.1"
   }
 }

@@ -3,7 +3,7 @@ import { Hat } from '../components'
 import { connect } from 'react-redux'
 
 class HomePage extends Component {
-    render() {
+    render () {
         return (
             <div>
                 <Hat title='Miru'/>
