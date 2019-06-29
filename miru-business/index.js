@@ -8,18 +8,26 @@ const dbDebug = require('debug')('miru:db')
 const logging = s => dbDebug(s)
 const config = utils.db.config(false, logging)
 
-let services
+let services, UserBusiness
 
-const startDB = async () => {
+const createBusinesses = async () => {
     if (!services) {
         debug(`${chalk.magenta('Conecting to Database...')}`)
         try {
             services = await db(config)
+            UserBusiness = require('./business/user')(debug, services.User)
             debug(`${chalk.green('Connected')}`)
         } catch (error) {
-            debug(`${chalk.red('[Conection error]')}`)
+            debug(`${chalk.red(`[Conection error]: ${error}`)}`)
+        }
+        return {
+            UserBusiness
+        }
+    } else {
+        return {
+            UserBusiness
         }
     }
 }
 
-startDB()
+module.exports = createBusinesses
