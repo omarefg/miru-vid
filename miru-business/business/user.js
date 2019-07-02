@@ -9,27 +9,29 @@ const transporter = nodemailer.createTransport({ service: 'hotmail', auth })
 
 const UserBusiness = (debug, UserModel) => {
     const create = async body => {
-        let user, email, username
-        email = await UserModel.findByEmail(body.email)
-        username = await UserModel.findByUsername(body.username)
+        const email = await UserModel.findByEmail(body.email)
+        const username = await UserModel.findByUsername(body.username)
+
         if (email.length || username.length) {
-            throw new Error({
+            const error = new Error()
+            error.lengthError = {
                 username: username.length > 0,
                 email: email.length > 0
-            })
+            }
+            throw error
         }
-        user = await UserModel.createUser(body)
-        jwt.sign({ id: user.id }, EMAIL_SECRET, { expiresIn: 60 * 60 * 24 * 3 },
-            async (error, emailToken) => {
-                if (error) { throw new Error(error) }
-                const url = `http://localhost:3020/miru/user/confirmation/${emailToken}`
-                try {
-                    await transporter.sendMail({ ...mailOptions(url), to: body.email })
-                    debug(`${chalk.green(`Email sent to: ${body.email}`)}`)
-                } catch (error) {
-                    throw new Error(error)
-                }
-            })
+
+        const sendEmail = async (error, emailToken) => {
+            if (error) { throw new Error(error) }
+            const url = `http://localhost:3020/miru/user/confirmation/${emailToken}`
+            transporter.sendMail({ ...mailOptions(url), to: body.email })
+                .then(() => debug(`${chalk.green(`Email sent to: ${body.email}`)}`))
+        }
+
+        const user = await UserModel.createUser(body)
+        const tokenobj = { id: user.id }
+        const tokenparams = { expiresIn: 60 * 60 * 24 * 3 }
+        jwt.sign(tokenobj, EMAIL_SECRET, tokenparams, sendEmail)
     }
 
     const login = async body => {
@@ -43,7 +45,9 @@ const UserBusiness = (debug, UserModel) => {
             if (!username.length) { errors.username = true }
             if (!password.length) { errors.password = true }
             if (errors.notConfirmed || errors.username || errors.password) {
-                throw new Error(errors)
+                const error = new Error()
+                error.objError = errors
+                throw error
             }
         } catch (error) {
             throw new Error(error)

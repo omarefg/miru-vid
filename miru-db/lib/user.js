@@ -1,15 +1,15 @@
 'use strict'
 
 const setupUserModel = UserModel => {
-    const findById = id => UserModel.findById(id)
+    const findById = id => UserModel.findByPk(id)
 
     const findAll = () => UserModel.findAll()
 
     const updateUser = async user => {
         const cond = { where: { id: user.id } }
-        const existingUser = await UserModel.findById(user.id)
+        const existingUser = await UserModel.findByPk(user.id)
         const updated = await UserModel.update(user, cond)
-        return updated ? UserModel.findById(user.id) : existingUser
+        return updated ? UserModel.findByPk(user.id) : existingUser
     }
 
     const createUser = async user => {

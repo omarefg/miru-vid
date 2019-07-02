@@ -1,7 +1,6 @@
 'use strict'
 
 const express = require('express')
-const debug = require('debug')('miru:api:routes')
 const controllers = require('./controller')
 const endpoints = require('./controller/endpoints.json')
 
@@ -17,16 +16,16 @@ const startRouter = () => {
             const putMethod = controller[url.put]
             const deleteMethod = controller[url.delete]
             if (getMethod) {
-                api.get(url.url, getMethod(debug))
+                api.get(url.url, getMethod)
             }
             if (postMethod) {
-                api.post(url.url, postMethod(debug))
+                api.post(url.url, postMethod)
             }
             if (putMethod) {
-                api.put(url.url, putMethod(debug))
+                api.put(url.url, putMethod)
             }
             if (deleteMethod) {
-                api.delete(url.url, deleteMethod(debug))
+                api.delete(url.url, deleteMethod)
             }
         }
     }
