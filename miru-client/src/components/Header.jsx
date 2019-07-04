@@ -1,31 +1,53 @@
-import React, { Component } from 'react'
-import { HeaderLayout, To, RightAligner } from './common'
-import logo from '../assets/logo.png'
-export class Header extends Component {
-    render () {
-        return (
-            <HeaderLayout>
-                <To
-                    title={<img src={logo} alt='logo'/>}
-                    container='header-logo'
-                    link='/'
-                    type='link-logo'
-                />
-                <RightAligner
-                    type='header-container'
-                >
-                    <To
-                        type='header-link'
-                        title='Inicia Sesión'
-                        link='/inicia-sesion'
-                    />
-                    <To
-                        title='Regístrate'
-                        type='header-link'
-                        link='registrate'
-                    />
-                </RightAligner>
-            </HeaderLayout>
-        )
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import { LinkButton, To } from './'
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        flexGrow: 1
+    },
+    menuButton: {
+        marginRight: theme.spacing(2)
+    },
+    title: {
+        flexGrow: 1
     }
+}))
+
+export const Header = () => {
+    const classes = useStyles()
+
+    return (
+        <div className={classes.root}>
+            <AppBar
+                position='fixed'
+                color='primary'
+            >
+                <Toolbar>
+                    <Typography
+                        variant='h6'
+                        className={classes.title}
+                    >
+                        <To
+                            to='/'
+                            title='Miru'
+                        />
+                    </Typography>
+                    <LinkButton
+                        color='inherit'
+                        to='/registrate'
+                        title='Regístrate'
+                    />
+                    <LinkButton
+                        color='inherit'
+                        to='/inicia-sesion'
+                        title='Inicia Sesión'
+                    />
+                </Toolbar>
+            </AppBar>
+        </div>
+    )
 }

@@ -1,35 +1,69 @@
 import React, { Component } from 'react'
-import { Hat, RegisterForm } from '../components'
-import { RegisterLayout } from '../components/layouts'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
+import { Helmet } from 'react-helmet'
+import { Form, Main, Password, DateInput } from '../components'
+import TextField from '@material-ui/core/TextField'
 
 class RegisterPage extends Component {
     render () {
         return (
-            <RegisterLayout>
-                <Hat title='Miru - Regístrate'/>
-                <RegisterForm
-                    username={this.props.user.username}
-                    changeUsername={this.props.actions.changeRegisterUsername}
-                    password={this.props.user.password}
-                    changePassword={this.props.actions.changeRegisterPassword}
-                    name={this.props.user.name}
-                    changeName={this.props.actions.changeName}
-                    lastname={this.props.user.lastname}
-                    changeLastname={this.props.actions.changeLastname}
-                    birthday={this.props.user.birthday}
-                    changeBirthday={this.props.actions.changeBirthday}
-                    email={this.props.user.email}
-                    changeEmail={this.props.actions.changeEmail}
-                    registerNewUser={this.props.actions.registerNewUser}
-                    user={this.props.user}
-                    usernameError={this.props.error.usernameError}
-                    emailError={this.props.error.emailError}
-                    history={this.props.history}
-                />
-            </RegisterLayout>
+            <Main>
+                <Helmet>
+                    <title>Miru - Regístrate</title>
+                </Helmet>
+                <Form
+                    maxWidth='xs'
+                    buttonTitle='Regístrate'
+                >
+                    <TextField
+                        id='name'
+                        label='Name'
+                        type='Text'
+                        margin='normal'
+                        fullWidth
+                    />
+                    <TextField
+                        id='lastname'
+                        label='Last Name'
+                        type='Text'
+                        margin='normal'
+                        fullWidth
+                    />
+                    <TextField
+                        id='username'
+                        label='Username'
+                        type='Text'
+                        margin='normal'
+                        fullWidth
+                    />
+                    <DateInput
+                        id='birthday'
+                        label='Birthdate'
+                        clearable
+                    />
+                    <TextField
+                        id='email'
+                        label='Email'
+                        type='Text'
+                        margin='normal'
+                        fullWidth
+                    />
+                    <Password
+                        id='password'
+                        label='Password'
+                        margin='normal'
+                        fullWidth
+                    />
+                    <Password
+                        id='confirmpassword'
+                        label='Confirm Password'
+                        margin='normal'
+                        fullWidth
+                    />
+                </Form>
+            </Main>
         )
     }
 }

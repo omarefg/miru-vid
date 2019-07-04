@@ -1,26 +1,44 @@
 import React, { Component } from 'react'
-import { Hat, LoginForm } from '../components'
-import { LoginLayout } from '../components/layouts'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
+import { Helmet } from 'react-helmet'
+import { Form, Main, Password } from '../components'
+import TextField from '@material-ui/core/TextField'
+
 class LoginPage extends Component {
+    usernameHandler = event => this.props.actions.changeLoginUsername(event.target.value)
+    passwordHandler = event => this.props.actions.changeLoginPassword(event.target.value)
+
     render () {
         return (
-            <LoginLayout>
-                <Hat title='Miru - Inicia Sesión'/>
-                <LoginForm
-                    username={this.props.username}
-                    password={this.props.password}
-                    notConfirmedError={this.props.error.notConfirmedError}
-                    usernameError={this.props.error.usernameError}
-                    passwordError={this.props.error.passwordError}
-                    changeUsername={this.props.actions.changeLoginUsername}
-                    changePassword={this.props.actions.changeLoginPassword}
-                    login={this.props.actions.login}
-                    successMessage={this.props.successMessage}
-                />
-            </LoginLayout>
+            <Main>
+                <Helmet>
+                    <title>Miru - Inicia Sesión</title>
+                </Helmet>
+                <Form
+                    maxWidth='xs'
+                    buttonTitle='Inicia Sesión'
+                >
+                    <TextField
+                        id='username'
+                        label='Username'
+                        type='Text'
+                        margin='normal'
+                        fullWidth
+                        value={this.props.username}
+                        onChange={this.usernameHandler}
+                    />
+                    <Password
+                        id='password'
+                        label='Password'
+                        margin='normal'
+                        fullWidth
+                        value={this.props.password}
+                        onChange={this.passwordHandler}
+                    />
+                </Form>
+            </Main>
         )
     }
 }

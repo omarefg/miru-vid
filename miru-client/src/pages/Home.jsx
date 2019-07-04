@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import { Hat } from '../components'
+import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
 
 class HomePage extends Component {
     render () {
         return (
             <div>
-                <Hat title='Miru'/>
+                <Helmet>
+                    <title>Miru</title>
+                </Helmet>
             </div>
         )
     }
