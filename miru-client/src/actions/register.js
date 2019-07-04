@@ -71,13 +71,29 @@ export const registerNewUser = user => async dispatch => {
             }
         })
     } catch (error) {
-        dispatch({
-            type: actions.ERROR_IN_NEW_USER,
-            payload: {
-                usernameError: error.response.data.username ? 'El usuario ya está en uso' : '',
-                emailError: error.response.data.email ? 'El email ya está en uso' : ''
-            }
-        })
+        if (error.response) {
+            dispatch({
+                type: actions.ERROR_IN_NEW_USER,
+                payload: {
+                    usernameError: error.response.data.username ? 'El usuario ya está en uso' : '',
+                    emailError: error.response.data.email ? 'El email ya está en uso' : ''
+                }
+            })
+        }
+        if (!error.response && error.message) {
+            dispatch({
+                type: actions.ERROR_IN_NEW_USER,
+                payload: {
+                    messageError: error.message
+                }
+            })
+        }
         throw error
+    }
+}
+
+export const restoreError = () => {
+    return {
+        type: actions.RESTORE_ERROR
     }
 }

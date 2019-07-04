@@ -76,6 +76,12 @@ const login = (state = initialState, action) => {
             }
         }
     }
+    case actions.RESTORE_ERROR: {
+        return {
+            ...state,
+            error: ''
+        }
+    }
     default:
         return state
     }
