@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { withSnackbar } from 'notistack'
 import * as actions from '../actions'
 import { Helmet } from 'react-helmet'
-import { Form, Main, Password, DateInput, Message } from '../components'
+import { Form, Main, Password, DateInput } from '../components'
 import TextField from '@material-ui/core/TextField'
-import Snackbar from '@material-ui/core/Snackbar'
+import Button from '@material-ui/core/Button'
 
 class RegisterPage extends Component {
     nameHandler = event => this.props.actions.changeName(event.target.value)
@@ -18,17 +19,47 @@ class RegisterPage extends Component {
     onSubmit = event => {
         event.preventDefault()
         this.props.actions.registerNewUser(this.props.user)
+            .then(() => {
+                this.props.actions.justRegisteredHandler()
+                this.props.history.push('/inicia-sesion')
+            })
+            .catch(error => console.log(error.response))
     }
 
-    messageCloseHandler = () => this.props.actions.restoreError()
+    messageCloseHandler = key => {
+        this.props.actions.restoreRegisterError()
+        this.props.closeSnackbar(key)
+    }
+
+    snackbarActions = key => {
+        return (
+            <Button
+                color='inherit'
+                onClick={() => this.messageCloseHandler(key)}
+                style={{ fontSize: '.8em' }}
+            >
+                Entendido
+            </Button>
+        )
+    }
+
+    createSnacks = () => {
+        if (this.props.error) {
+            for (let error of Object.keys(this.props.error)) {
+                this.props.error[error] && this.props.enqueueSnackbar(this.props.error[error], {
+                    action: this.snackbarActions,
+                    variant: 'error',
+                    autoHideDuration: 6000
+                })
+            }
+        }
+    }
+
+    componentDidUpdate () {
+        this.createSnacks()
+    }
 
     render () {
-        let isOpen
-
-        if (this.props.error) {
-            isOpen = true
-        }
-
         return (
             <Main>
                 <Helmet>
@@ -47,6 +78,7 @@ class RegisterPage extends Component {
                         fullWidth
                         value={this.props.user.name}
                         onChange={this.nameHandler}
+                        required
                     />
                     <TextField
                         id='lastname'
@@ -56,6 +88,7 @@ class RegisterPage extends Component {
                         fullWidth
                         value={this.props.user.lastname}
                         onChange={this.lastnameHandler}
+                        required
                     />
                     <TextField
                         id='username'
@@ -65,6 +98,7 @@ class RegisterPage extends Component {
                         fullWidth
                         value={this.props.user.username}
                         onChange={this.usernameHandler}
+                        required
                     />
                     <DateInput
                         id='birthday'
@@ -72,6 +106,7 @@ class RegisterPage extends Component {
                         clearable
                         value={this.props.user.birthday || new Date()}
                         onChange={this.birthdayHandler}
+                        required
                     />
                     <TextField
                         id='email'
@@ -81,6 +116,7 @@ class RegisterPage extends Component {
                         fullWidth
                         value={this.props.user.email}
                         onChange={this.emailHandler}
+                        required
                     />
                     <Password
                         id='password'
@@ -89,27 +125,9 @@ class RegisterPage extends Component {
                         fullWidth
                         value={this.props.user.password}
                         onChange={this.passwordHandler}
+                        required
                     />
                 </Form>
-                <Snackbar
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left'
-                    }}
-                    open={isOpen}
-                    autoHideDuration={6000}
-                    onClose={this.messageCloseHandler}
-                >
-                    <Message
-                        variant='error'
-                        message={`
-                            ${this.props.error.messageError ? this.props.error.messageError : ''}
-                            ${this.props.error.usernameError ? this.props.error.usernameError : ''}
-                            ${this.props.error.emailError ? this.props.error.emailError : ''}
-                        `}
-                        onClose={this.messageCloseHandler}
-                    />
-                </Snackbar>
             </Main>
         )
     }
@@ -128,4 +146,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export const Register = connect(mapStateToProps, mapDispatchToProps)(RegisterPage)
+export const Register = withSnackbar(connect(mapStateToProps, mapDispatchToProps)(RegisterPage))

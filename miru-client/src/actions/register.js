@@ -64,19 +64,13 @@ export const registerNewUser = user => async dispatch => {
             method: 'post',
             data: user
         })
-        return dispatch({
-            type: actions.CHANGE_SUCCESS_MESSAGE,
-            payload: {
-                successMessage: 'Gracias por registrarte. Ahora por favor confirma tu correo para poder iniciar sesión'
-            }
-        })
     } catch (error) {
         if (error.response) {
             dispatch({
                 type: actions.ERROR_IN_NEW_USER,
                 payload: {
-                    usernameError: error.response.data.username ? 'El usuario ya está en uso' : '',
-                    emailError: error.response.data.email ? 'El email ya está en uso' : ''
+                    usernameError: error.response.data.username ? 'El usuario ya está en uso.' : '',
+                    emailError: error.response.data.email ? 'El email ya está en uso.' : ''
                 }
             })
         }
@@ -92,8 +86,14 @@ export const registerNewUser = user => async dispatch => {
     }
 }
 
-export const restoreError = () => {
+export const restoreRegisterError = () => {
     return {
-        type: actions.RESTORE_ERROR
+        type: actions.RESTORE_REGISTER_ERROR
+    }
+}
+
+export const justRegisteredHandler = () => {
+    return {
+        type: actions.JUST_REGISTERED_HANDLER
     }
 }

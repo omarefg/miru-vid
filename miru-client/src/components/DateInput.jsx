@@ -24,6 +24,7 @@ export const DateInput = props => {
                 onChange={props.onChange}
                 format='dd/MM/yyyy'
                 className={classes.input}
+                required={props.required}
             />
         </MuiPickersUtilsProvider>
     )

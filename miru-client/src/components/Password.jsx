@@ -35,6 +35,7 @@ export const Password = props => {
                         </IconButton>
                     </InputAdornment>
                 }
+                required={props.required}
             />
         </FormControl>
     )

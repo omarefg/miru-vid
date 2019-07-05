@@ -21,16 +21,24 @@ const UserBusiness = (debug, UserModel) => {
             throw error
         }
 
+        try {
+            await UserModel.createUser(body)
+            await sendRegistrationEmail(body.email)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    const sendRegistrationEmail = async email => {
         const sendEmail = async (error, emailToken) => {
             if (error) { throw new Error(error) }
             const url = `http://localhost:3020/miru/user/confirmation/${emailToken}`
-            transporter.sendMail({ ...mailOptions(url), to: body.email })
-                .then(() => debug(`${chalk.green(`Email sent to: ${body.email}`)}`))
+            transporter.sendMail({ ...mailOptions(url), to: email })
+                .then(() => debug(`${chalk.green(`Email sent to: ${email}`)}`))
         }
-
-        const user = await UserModel.createUser(body)
+        const user = await UserModel.findByEmail(email)
         const tokenobj = { id: user.id }
-        const tokenparams = { expiresIn: 60 * 60 * 24 * 3 }
+        const tokenparams = { }
         jwt.sign(tokenobj, EMAIL_SECRET, tokenparams, sendEmail)
     }
 
@@ -50,7 +58,7 @@ const UserBusiness = (debug, UserModel) => {
                 throw error
             }
         } catch (error) {
-            throw new Error(error)
+            throw error
         }
         return user
     }
@@ -61,14 +69,15 @@ const UserBusiness = (debug, UserModel) => {
             await UserModel.updateUser({ id, confirmed: true })
             return 'http://localhost:3000/inicia-sesion'
         } catch (error) {
-            throw new Error(error)
+            throw error
         }
     }
 
     return {
         create,
         login,
-        confirmRegisteredUser
+        confirmRegisteredUser,
+        sendRegistrationEmail
     }
 }
 

@@ -13,6 +13,10 @@
             {
                 "url": "/user/confirmation/:token",
                 "get": "confirmRegisteredUser"
+            },
+            {
+                "url": "/user/confirmation/email",
+                "post": "sendConfirmationEmail"
             }
         ]
     }

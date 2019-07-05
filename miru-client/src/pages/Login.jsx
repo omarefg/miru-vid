@@ -1,14 +1,120 @@
-import React, { Component } from 'react'
+import React, { Fragment, Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { withSnackbar } from 'notistack'
 import * as actions from '../actions'
 import { Helmet } from 'react-helmet'
-import { Form, Main, Password } from '../components'
+import { Form, Main, Password, FormMessage } from '../components'
 import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
 
 class LoginPage extends Component {
     usernameHandler = event => this.props.actions.changeLoginUsername(event.target.value)
+
     passwordHandler = event => this.props.actions.changeLoginPassword(event.target.value)
+
+    emailHandler = event => this.props.actions.changeLoginEmail(event.target.value)
+
+    messageCloseHandler = key => this.props.closeSnackbar(key)
+
+    errorMessageCloseHandler = key => {
+        this.props.actions.restoreLoginError()
+        this.props.closeSnackbar(key)
+    }
+
+    resendMessageCloseHandler = key => {
+        this.props.actions.resendConfirmationFormMessageHandler()
+        this.props.actions.restoreLoginError()
+        this.props.closeSnackbar(key)
+    }
+
+    snackbarActions = key => {
+        return (
+            <Fragment>
+                <Button
+                    color='inherit'
+                    onClick={() => this.messageCloseHandler(key)}
+                    style={{ fontSize: '.8em' }}
+                >
+                    Entendido
+                </Button>
+                <Button
+                    color='inherit'
+                    onClick={() => this.resendMessageCloseHandler(key)}
+                    style={{ fontSize: '.8em' }}
+                >
+                    Enviar el correo nuevamente
+                </Button>
+            </Fragment>
+        )
+    }
+
+    errorSnackbarActions = key => {
+        return (
+            <Button
+                color='inherit'
+                onClick={() => this.messageCloseHandler(key)}
+                style={{ fontSize: '.8em' }}
+            >
+                Entendido
+            </Button>
+        )
+    }
+
+    onSubmit = event => {
+        event.preventDefault()
+        const user = { username: this.props.username, password: this.props.password }
+        this.props.actions.login(user)
+    }
+
+    createMessageForJustRegisteredUser = () => {
+        if (this.props.justRegistered) {
+            this.props.enqueueSnackbar('¡Felicidades! Acabas de registrarte en Miru, por favor, antes de iniciar sesión verifica tu correo.', {
+                action: this.snackbarActions,
+                variant: 'success',
+                autoHideDuration: 1000 * 20
+            })
+            this.props.actions.justRegisteredHandler()
+        }
+    }
+
+    createSnackErrorMessages = () => {
+        const confirmedError = 'El correo electrónico no ha sido confirmado.'
+        if (this.props.error) {
+            for (let error of Object.keys(this.props.error)) {
+                if (this.props.error[error] === confirmedError) {
+                    this.props.error[error] && this.props.enqueueSnackbar(this.props.error[error], {
+                        action: this.snackbarActions,
+                        variant: 'error',
+                        autoHideDuration: 6000
+                    })
+                }
+                if (this.props.error[error] && this.props.error[error] !== confirmedError) {
+                    this.props.error[error] && this.props.enqueueSnackbar(this.props.error[error], {
+                        action: this.errorSnackbarActions,
+                        variant: 'error',
+                        autoHideDuration: 6000
+                    })
+                }
+            }
+        }
+    }
+
+    resendConfirmationFormMessageHandler = () => this.props.actions.resendConfirmationFormMessageHandler()
+
+    sendConfirmationEmail = event => {
+        event.preventDefault()
+        this.props.actions.resendConfirmationFormMessageHandler()
+        this.props.actions.sendConfirmationEmail(this.props.email)
+    }
+
+    componentDidUpdate () {
+        this.createSnackErrorMessages()
+    }
+
+    componentDidMount () {
+        this.createMessageForJustRegisteredUser()
+    }
 
     render () {
         return (
@@ -19,6 +125,7 @@ class LoginPage extends Component {
                 <Form
                     maxWidth='xs'
                     buttonTitle='Inicia Sesión'
+                    onSubmit={this.onSubmit}
                 >
                     <TextField
                         id='username'
@@ -28,6 +135,7 @@ class LoginPage extends Component {
                         fullWidth
                         value={this.props.username}
                         onChange={this.usernameHandler}
+                        required
                     />
                     <Password
                         id='password'
@@ -36,15 +144,30 @@ class LoginPage extends Component {
                         fullWidth
                         value={this.props.password}
                         onChange={this.passwordHandler}
+                        required
                     />
                 </Form>
+                <FormMessage
+                    open={this.props.resendConfirmationFormMessageOpen}
+                    onClose={this.resendConfirmationFormMessageHandler}
+                    title='Reenvio de correo de confirmación'
+                    message='Ingresa tu correo para poder reenviar el mensaje de confirmación'
+                    label='Email'
+                    inputValue={this.props.email}
+                    inputOnChange={this.emailHandler}
+                    onSubmit={this.sendConfirmationEmail}
+                    buttonTitle='Enviar'
+                />
             </Main>
         )
     }
 }
 
 const mapStateToProps = state => {
-    return { ...state.login }
+    return {
+        ...state.login,
+        justRegistered: state.register.justRegistered
+    }
 }
 
 const mapDispatchToProps = dispatch => {
@@ -53,4 +176,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export const Login = connect(mapStateToProps, mapDispatchToProps)(LoginPage)
+export const Login = withSnackbar(connect(mapStateToProps, mapDispatchToProps)(LoginPage))

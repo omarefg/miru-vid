@@ -9,7 +9,8 @@ const initialState = {
         username: '',
         password: ''
     },
-    error: ''
+    error: '',
+    justRegistered: false
 }
 
 const login = (state = initialState, action) => {
@@ -76,10 +77,16 @@ const login = (state = initialState, action) => {
             }
         }
     }
-    case actions.RESTORE_ERROR: {
+    case actions.RESTORE_REGISTER_ERROR: {
         return {
             ...state,
             error: ''
+        }
+    }
+    case actions.JUST_REGISTERED_HANDLER: {
+        return {
+            ...state,
+            justRegistered: !state.justRegistered
         }
     }
     default:
