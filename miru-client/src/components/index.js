@@ -1,5 +1,6 @@
 export * from './Card.jsx'
 export * from './CardsSection.jsx'
+export * from './CarouselChevron.jsx'
 export * from './DateInput.jsx'
 export * from './Drawer.jsx'
 export * from './Form.jsx'

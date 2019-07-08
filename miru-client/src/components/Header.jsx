@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
 import { makeStyles } from '@material-ui/core/styles'
 import { AppBar, Toolbar, Typography } from '@material-ui/core'
 import { LinkButton, To, SessionHeader } from './'
@@ -16,13 +19,12 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export const Header = () => {
+const HeaderComponent = props => {
     const classes = useStyles()
 
     const [state, setState] = useState({
         anchorEl: null,
-        mobileMoreAnchorEl: null,
-        showDrawer: false
+        mobileMoreAnchorEl: null
     })
 
     const isMenuOpen = Boolean(state.anchorEl)
@@ -32,7 +34,7 @@ export const Header = () => {
     const handleMenuClose = () => setState({ ...state, anchorEl: null })
     const mobileMenuOpenHandler = event => setState({ ...state, mobileMoreAnchorEl: event.currentTarget })
     const handleMobileMenuClose = () => setState({ ...state, mobileMoreAnchorEl: null })
-    const showDrawerHandler = () => setState({ ...state, showDrawer: !state.showDrawer })
+    const showDrawerHandler = () => props.actions.drawerOpenStatusHandler()
 
     if (isSessionActive()) {
         return (
@@ -46,7 +48,7 @@ export const Header = () => {
                 isMenuOpen={isMenuOpen}
                 isMobileMenuOpen={isMobileMenuOpen}
                 showDrawerHandler={showDrawerHandler}
-                showDrawer={state.showDrawer}
+                showDrawer={props.isDrawerOpen}
             />
         )
     }
@@ -82,3 +84,17 @@ export const Header = () => {
         </div>
     )
 }
+
+const mapStateToProps = state => {
+    return {
+        ...state.general
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        actions: bindActionCreators(actions, dispatch)
+    }
+}
+
+export const Header = connect(mapStateToProps, mapDispatchToProps)(HeaderComponent)

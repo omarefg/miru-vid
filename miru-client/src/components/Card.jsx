@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, CardMedia, CardActionArea, Card as CardUI } from '@material-ui/core'
+import { CardMedia, CardActionArea, Card as CardUI } from '@material-ui/core'
 
 export const Card = props => {
     return (
