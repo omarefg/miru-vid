@@ -5,8 +5,8 @@ import { withSnackbar } from 'notistack'
 import * as actions from '../actions'
 import { Helmet } from 'react-helmet'
 import { Form, Main, Password, DateInput } from '../components'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
+import { TextField, Button } from '@material-ui/core'
+import { isSessionActive } from '../utils/general'
 
 class RegisterPage extends Component {
     nameHandler = event => this.props.actions.changeName(event.target.value)
@@ -57,6 +57,10 @@ class RegisterPage extends Component {
 
     componentDidUpdate () {
         this.createSnacks()
+    }
+
+    componentWillMount () {
+        isSessionActive() && this.props.history.push('/')
     }
 
     render () {

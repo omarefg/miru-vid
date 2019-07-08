@@ -4,13 +4,9 @@ import { To } from './'
 
 export const LinkButton = props => {
     return (
-        <Button
-            color={props.color}
-        >
-            <To
-                to={props.to}
-                title={props.title}
-            />
-        </Button>
+        <To
+            to={props.to}
+            title={<Button color={props.color}>{props.title}</Button>}
+        />
     )
 }

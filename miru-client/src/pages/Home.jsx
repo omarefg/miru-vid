@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
+import { CardsSection } from '../components'
 
 class HomePage extends Component {
     render () {
@@ -9,6 +10,7 @@ class HomePage extends Component {
                 <Helmet>
                     <title>Miru</title>
                 </Helmet>
+                <CardsSection/>
             </div>
         )
     }

@@ -2,9 +2,11 @@
 
 const jwt = require('jsonwebtoken')
 const chalk = require('chalk')
+const bcrypt = require('bcrypt')
+const nodemailer = require('nodemailer')
 const { EMAIL_SECRET, auth } = require('../constants/auth')
 const { mailOptions } = require('../constants/email')
-const nodemailer = require('nodemailer')
+const { SALT_ROUNDS } = require('../constants/user')
 const transporter = nodemailer.createTransport({ service: 'hotmail', auth })
 
 const UserBusiness = (debug, UserModel) => {
@@ -20,8 +22,8 @@ const UserBusiness = (debug, UserModel) => {
             }
             throw error
         }
-
         try {
+            body.password = await bcrypt.hash(body.password, SALT_ROUNDS)
             await UserModel.createUser(body)
             await sendRegistrationEmail(body.email)
         } catch (error) {
@@ -36,23 +38,33 @@ const UserBusiness = (debug, UserModel) => {
             transporter.sendMail({ ...mailOptions(url), to: email })
                 .then(() => debug(`${chalk.green(`Email sent to: ${email}`)}`))
         }
-        const user = await UserModel.findByEmail(email)
+        let user = await UserModel.findByEmail(email)
+        user = user[0]
         const tokenobj = { id: user.id }
         const tokenparams = { }
         jwt.sign(tokenobj, EMAIL_SECRET, tokenparams, sendEmail)
     }
 
     const login = async body => {
-        let user, username, password
+        let user, username, password, match
         let errors = { notConfirmed: false, username: false, password: false }
         try {
-            user = await UserModel.findByUsernameAndPassword(body)
             username = await UserModel.findByUsername(body.username)
-            password = await UserModel.findByPassword(body.password)
-            if (user && !user.confirmed) { errors.notConfirmed = true }
-            if (!username.length) { errors.username = true }
-            if (!password.length) { errors.password = true }
-            if (errors.notConfirmed || errors.username || errors.password) {
+            match = await bcrypt.compare(body.password, username[0].password)
+            if (match) {
+                body.password = username[0].password
+                user = await UserModel.findByUsernameAndPassword(body)
+                password = await UserModel.findByPassword(body.password)
+                if (user && !user.confirmed) { errors.notConfirmed = true }
+                if (!username.length) { errors.username = true }
+                if (!password.length) { errors.password = true }
+                if (errors.notConfirmed || errors.username || errors.password) {
+                    const error = new Error()
+                    error.objError = errors
+                    throw error
+                }
+            } else {
+                errors.password = true
                 const error = new Error()
                 error.objError = errors
                 throw error
@@ -60,6 +72,10 @@ const UserBusiness = (debug, UserModel) => {
         } catch (error) {
             throw error
         }
+        delete user.password
+        delete user.confirmed
+        delete user.createdAt
+        delete user.updatedAt
         return user
     }
 

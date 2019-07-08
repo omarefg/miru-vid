@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import { LinkButton, To } from './'
+import { AppBar, Toolbar, Typography } from '@material-ui/core'
+import { LinkButton, To, SessionHeader } from './'
+import { isSessionActive } from '../utils/general'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -19,6 +18,38 @@ const useStyles = makeStyles(theme => ({
 
 export const Header = () => {
     const classes = useStyles()
+
+    const [state, setState] = useState({
+        anchorEl: null,
+        mobileMoreAnchorEl: null,
+        showDrawer: false
+    })
+
+    const isMenuOpen = Boolean(state.anchorEl)
+    const isMobileMenuOpen = Boolean(state.mobileMoreAnchorEl)
+
+    const profileMenuOpenHandler = event => setState({ ...state, anchorEl: event.currentTarget })
+    const handleMenuClose = () => setState({ ...state, anchorEl: null })
+    const mobileMenuOpenHandler = event => setState({ ...state, mobileMoreAnchorEl: event.currentTarget })
+    const handleMobileMenuClose = () => setState({ ...state, mobileMoreAnchorEl: null })
+    const showDrawerHandler = () => setState({ ...state, showDrawer: !state.showDrawer })
+
+    if (isSessionActive()) {
+        return (
+            <SessionHeader
+                menuId='primary-search-account-menu'
+                mobileMenuId='primary-search-account-menu-mobile'
+                profileMenuOpenHandler={profileMenuOpenHandler}
+                handleMenuClose={handleMenuClose}
+                mobileMenuOpenHandler={mobileMenuOpenHandler}
+                handleMobileMenuClose={handleMobileMenuClose}
+                isMenuOpen={isMenuOpen}
+                isMobileMenuOpen={isMobileMenuOpen}
+                showDrawerHandler={showDrawerHandler}
+                showDrawer={state.showDrawer}
+            />
+        )
+    }
 
     return (
         <div className={classes.root}>

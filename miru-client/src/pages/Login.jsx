@@ -5,8 +5,8 @@ import { withSnackbar } from 'notistack'
 import * as actions from '../actions'
 import { Helmet } from 'react-helmet'
 import { Form, Main, Password, FormMessage } from '../components'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
+import { TextField, Button } from '@material-ui/core'
+import { isSessionActive } from '../utils/general'
 
 class LoginPage extends Component {
     usernameHandler = event => this.props.actions.changeLoginUsername(event.target.value)
@@ -61,10 +61,12 @@ class LoginPage extends Component {
         )
     }
 
-    onSubmit = event => {
+    onSubmit = async event => {
         event.preventDefault()
         const user = { username: this.props.username, password: this.props.password }
-        this.props.actions.login(user)
+        const session = await this.props.actions.login(user)
+        localStorage.setItem('miru-session', JSON.stringify(session))
+        this.props.history.push('/')
     }
 
     createMessageForJustRegisteredUser = () => {
@@ -110,6 +112,10 @@ class LoginPage extends Component {
 
     componentDidUpdate () {
         this.createSnackErrorMessages()
+    }
+
+    componentWillMount () {
+        isSessionActive() && this.props.history.push('/')
     }
 
     componentDidMount () {
