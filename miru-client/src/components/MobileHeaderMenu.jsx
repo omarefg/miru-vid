@@ -1,6 +1,6 @@
 import React from 'react'
 import { IconButton, Badge, MenuItem, Menu } from '@material-ui/core'
-import { AccountCircle, Mail, Notifications } from '@material-ui/icons'
+import { AccountCircle, Notifications } from '@material-ui/icons'
 
 export const MobileHeaderMenu = props => {
     return (
@@ -14,19 +14,10 @@ export const MobileHeaderMenu = props => {
             keepMounted
         >
             <MenuItem>
-                <IconButton
-                    aria-label='Show 4 new mails'
-                    color='inherit'
-                >
-                    <Badge badgeContent={4} color='secondary'><Mail/></Badge>
+                <IconButton aria-label='' color='inherit'>
+                    <Badge badgeContent={null} color='secondary'><Notifications/></Badge>
                 </IconButton>
-                <p>Messages</p>
-            </MenuItem>
-            <MenuItem>
-                <IconButton aria-label='Show 11 new notifications' color='inherit'>
-                    <Badge badgeContent={11} color='secondary'><Notifications/></Badge>
-                </IconButton>
-                <p>Notifications</p>
+                <p>Notificationes</p>
             </MenuItem>
             <MenuItem onClick={props.profileHandler}>
                 <IconButton
@@ -37,7 +28,7 @@ export const MobileHeaderMenu = props => {
                 >
                     <AccountCircle/>
                 </IconButton>
-                <p>Profile</p>
+                <p>Perfil</p>
             </MenuItem>
         </Menu>
     )

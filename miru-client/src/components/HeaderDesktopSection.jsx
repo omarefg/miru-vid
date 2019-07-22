@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { IconButton, Badge } from '@material-ui/core'
-import { Mail, Notifications, AccountCircle } from '@material-ui/icons'
+import { Notifications, AccountCircle } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
     sectionDesktop: {
@@ -17,14 +17,8 @@ export const HeaderDesktopSection = props => {
 
     return (
         <div className={classes.sectionDesktop}>
-            <IconButton aria-label='Show 4 new mails' color='inherit'>
-                <Badge badgeContent={4} color='secondary'>
-                    <Mail />
-                </Badge>
-            </IconButton>
-
-            <IconButton aria-label='Show 17 new notifications' color='inherit'>
-                <Badge badgeContent={17} color='secondary'>
+            <IconButton aria-label='' color='inherit'>
+                <Badge badgeContent={null} color='secondary'>
                     <Notifications />
                 </Badge>
             </IconButton>

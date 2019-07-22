@@ -31,9 +31,13 @@ const HeaderComponent = props => {
     const isMobileMenuOpen = Boolean(state.mobileMoreAnchorEl)
 
     const profileMenuOpenHandler = event => setState({ ...state, anchorEl: event.currentTarget })
+
     const handleMenuClose = () => setState({ ...state, anchorEl: null })
+
     const mobileMenuOpenHandler = event => setState({ ...state, mobileMoreAnchorEl: event.currentTarget })
+
     const handleMobileMenuClose = () => setState({ ...state, mobileMoreAnchorEl: null })
+
     const showDrawerHandler = () => props.actions.drawerOpenStatusHandler()
 
     if (isSessionActive()) {
@@ -49,6 +53,8 @@ const HeaderComponent = props => {
                 isMobileMenuOpen={isMobileMenuOpen}
                 showDrawerHandler={showDrawerHandler}
                 showDrawer={props.isDrawerOpen}
+                anchorEl={state.anchorEl}
+                mobileMoreAnchorEl={state.mobileMoreAnchorEl}
             />
         )
     }

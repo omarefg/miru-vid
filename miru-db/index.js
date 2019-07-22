@@ -1,8 +1,16 @@
 'use strict'
 
-const setupDatabase = require('./lib/db')
-const setupUser = require('./lib/user')
-const setupUserModel = require('./models/user')
+const {
+    setupUser,
+    setupDatabase,
+    setupSection
+} = require('./lib/')
+
+const {
+    setupUserModel,
+    setupSectionModel
+} = require('./models/')
+
 const defaults = require('defaults')
 const { dbConfig } = require('miru-utils').db
 
@@ -10,6 +18,7 @@ const startDB = async config => {
     config = defaults(config, dbConfig)
     const sequelize = setupDatabase(config)
     const UserModel = setupUserModel(config)
+    const SectionModel = setupSectionModel(config)
 
     await sequelize.authenticate()
 
@@ -18,9 +27,11 @@ const startDB = async config => {
     }
 
     const User = setupUser(UserModel)
+    const Section = setupSection(SectionModel)
 
     return {
-        User
+        User,
+        Section
     }
 }
 
