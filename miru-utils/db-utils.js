@@ -6,12 +6,12 @@ module.exports = {
         username: process.env.DB_USER || 'omarefg',
         password: process.env.DB_PASS || '20350273',
         host: process.env.DB_HOST || 'localhost',
-        dialect: 'postgres',
+        dialect: 'mysql',
         logging,
         setup
     }),
     dbConfig: {
-        dialect: 'sqlite',
+        dialect: 'mysql',
         pool: {
             max: 10,
             min: 0,

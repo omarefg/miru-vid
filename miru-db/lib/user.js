@@ -1,41 +1,41 @@
 'use strict'
 
-const setupUserModel = UserModel => {
-    const findById = id => UserModel.findByPk(id)
+const setupUserModel = model => {
+    const findById = id => model.findByPk(id)
 
-    const findAll = () => UserModel.findAll()
+    const findAll = () => model.findAll()
 
     const updateUser = async user => {
         const cond = { where: { id: user.id } }
-        const existingUser = await UserModel.findByPk(user.id)
-        const updated = await UserModel.update(user, cond)
-        return updated ? UserModel.findByPk(user.id) : existingUser
+        const existingUser = await model.findByPk(user.id)
+        const updated = await model.update(user, cond)
+        return updated ? model.findByPk(user.id) : existingUser
     }
 
     const createUser = async user => {
-        const result = await UserModel.create(user)
+        const result = await model.create(user)
         return result.toJSON()
     }
 
     const findByUsername = username => {
         const cond = { where: { username } }
-        return UserModel.findAll(cond)
+        return model.findAll(cond)
     }
 
     const findByUsernameAndPassword = user => {
         const { username, password } = user
         const cond = { where: { username, password } }
-        return UserModel.findOne(cond)
+        return model.findOne(cond)
     }
 
     const findByEmail = email => {
         const cond = { where: { email } }
-        return UserModel.findAll(cond)
+        return model.findAll(cond)
     }
 
     const findByPassword = password => {
         const cond = { where: { password } }
-        return UserModel.findAll(cond)
+        return model.findAll(cond)
     }
 
     return {

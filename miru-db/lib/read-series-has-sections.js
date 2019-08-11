@@ -1,6 +1,6 @@
 'use strict'
 
-const setupSectionModel = model => {
+const setupReadSeriesHasSectionsModel = model => {
     const findById = id => model.findByPk(id)
 
     const findAll = () => model.findAll()
@@ -11,4 +11,4 @@ const setupSectionModel = model => {
     }
 }
 
-module.exports = setupSectionModel
+module.exports = setupReadSeriesHasSectionsModel

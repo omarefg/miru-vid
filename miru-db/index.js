@@ -1,38 +1,29 @@
 'use strict'
 
-const {
-    setupUser,
-    setupDatabase,
-    setupSection
-} = require('./lib/')
-
-const {
-    setupUserModel,
-    setupSectionModel
-} = require('./models/')
-
+const models = require('./models/')
+const libs = require('./lib/')
+const modelsData = require('./models.json')
 const defaults = require('defaults')
 const { dbConfig } = require('miru-utils').db
 
 const startDB = async config => {
     config = defaults(config, dbConfig)
-    const sequelize = setupDatabase(config)
-    const UserModel = setupUserModel(config)
-    const SectionModel = setupSectionModel(config)
+    const sequelize = libs.setupDatabase(config)
+    const databases = {}
+
+    for (const data of modelsData) {
+        const { lib, model, name } = data
+        const modelSetup = libs[lib](config)
+        databases[name] = models[model](modelSetup)
+    }
 
     await sequelize.authenticate()
 
     if (config.setup) {
-        await sequelize.sync(({ force: true }))
+        await sequelize.sync({ force: true, logging: console.log })
     }
 
-    const User = setupUser(UserModel)
-    const Section = setupSection(SectionModel)
-
-    return {
-        User,
-        Section
-    }
+    return databases
 }
 
 module.exports = startDB

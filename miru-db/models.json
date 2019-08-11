@@ -1,0 +1,132 @@
+[
+    {
+        "model": "setupUserModel",
+        "lib": "setupUser",
+        "name": "User"
+    },
+    {
+        "model": "setupSectionModel",
+        "lib": "setupSection",
+        "name": "Section"
+    },
+    {
+        "model": "setupReadMovieModel",
+        "lib": "setupReadMovie",
+        "name": "ReadMovie"
+    },
+    {
+        "model": "setupCreatorModel",
+        "lib": "setupCreator",
+        "name": "Creator"
+    },
+    {
+        "model": "setupReadSerieModel",
+        "lib": "setupReadSerie",
+        "name": "ReadSerie"
+    },
+    {
+        "model": "setupReadChapterModel",
+        "lib": "setupReadChapter",
+        "name": "ReadChapter"
+    },
+    {
+        "model": "setupStreamMovieModel",
+        "lib": "setupStreamMovie",
+        "name": "StreamMovie"
+    },
+    {
+        "model": "setupStreamSerieModel",
+        "lib": "setupStreamSerie",
+        "name": "StreamSerie"
+    },
+    {
+        "model": "setupStreamChapterModel",
+        "lib": "setupStreamChapter",
+        "name": "StreamChapter"
+    },
+    {
+        "model": "setupCreatorNotificationModel",
+        "lib": "setupCreatorNotification",
+        "name": "CreatorNotification"
+    },
+    {
+        "model": "setupReadMoviesHasSectionsModel",
+        "lib": "setupReadMoviesHasSections",
+        "name": "ReadMoviesHasSections"
+    },
+    {
+        "model": "setupReadSeriesHasSectionsModel",
+        "lib": "setupReadSeriesHasSections",
+        "name": "ReadSeriesHasSections"
+    },
+    {
+        "model": "setupStreamSeriesHasSectionsModel",
+        "lib": "setupStreamSeriesHasSections",
+        "name": "StreamSeriesHasSections"
+    },
+    {
+        "model": "setupStreamMoviesHasSectionsModel",
+        "lib": "setupStreamMoviesHasSections",
+        "name": "StreamMoviesHasSections"
+    },
+    {
+        "model": "setupUserNotificationModel",
+        "lib": "setupUserNotification",
+        "name": "UserNotification"
+    },
+    {
+        "model": "setupUsersHasUserNotificationsModel",
+        "lib": "setupUsersHasUserNotifications",
+        "name": "UsersHasUserNotifications"
+    },
+    {
+        "model": "setupUsersLikeReadMoviesModel",
+        "lib": "setupUsersLikeReadMovies",
+        "name": "UsersLikeReadMovies"
+    },
+    {
+        "model": "setupUsersLikeReadSeriesModel",
+        "lib": "setupUsersLikeReadSeries",
+        "name": "UsersLikeReadSeries"
+    },
+    {
+        "model": "setupUsersLikeStreamMoviesModel",
+        "lib": "setupUsersLikeStreamMovies",
+        "name": "UsersLikeStreamMovies"
+    },
+    {
+        "model": "setupUsersLikeStreamSeriesModel",
+        "lib": "setupUsersLikeStreamSeries",
+        "name": "UsersLikeStreamSeries"
+    },
+    {
+        "model": "setupUsersWatchReadMoviesModel",
+        "lib": "setupUsersWatchReadMovies",
+        "name": "UsersWatchReadMovies"
+    },
+    {
+        "model": "setupUsersWatchReadSeriesModel",
+        "lib": "setupUsersWatchReadSeries",
+        "name": "UsersWatchReadSeries"
+    },
+    {
+        "model": "setupUsersWatchReadChaptersModel",
+        "lib": "setupUsersWatchReadChapters",
+        "name": "UsersWatchReadChapters"
+    },
+    {
+        "model": "setupUsersWatchStreamMoviesModel",
+        "lib": "setupUsersWatchStreamMovies",
+        "name": "UsersWatchStreamMovies"
+    },
+    {
+        "model": "setupUsersWatchStreamSeriesModel",
+        "lib": "setupUsersWatchStreamSeries",
+        "name": "UsersWatchStreamSeries"
+    },
+    {
+        "model": "setupUsersWatchStreamChaptersModel",
+        "lib": "setupUsersWatchStreamChapters",
+        "name": "UsersWatchStreamChapters"
+    }
+]
