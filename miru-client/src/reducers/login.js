@@ -1,11 +1,11 @@
 import * as actions from '../actions/types'
 
 const initialState = {
-    username: '',
-    password: '',
+    user_username: '',
+    user_password: '',
     error: '',
     resendConfirmationFormMessageOpen: false,
-    email: ''
+    user_email: ''
 }
 
 const login = (state = initialState, action) => {

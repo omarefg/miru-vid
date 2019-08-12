@@ -6,7 +6,7 @@ export const changeRegisterUsername = username => {
     return {
         type: actions.CHANGE_REGISTER_USERNAME,
         payload: {
-            username
+            user_username: username
         }
     }
 }
@@ -15,7 +15,7 @@ export const changeRegisterPassword = password => {
     return {
         type: actions.CHANGE_REGISTER_PASSWORD,
         payload: {
-            password
+            user_password: password
         }
     }
 }
@@ -24,7 +24,7 @@ export const changeName = name => {
     return {
         type: actions.CHANGE_NAME,
         payload: {
-            name
+            user_name: name
         }
     }
 }
@@ -33,16 +33,16 @@ export const changeLastname = lastname => {
     return {
         type: actions.CHANGE_LASTNAME,
         payload: {
-            lastname
+            user_lastname: lastname
         }
     }
 }
 
-export const changeBirthday = birthday => {
+export const changeBirthday = birthdate => {
     return {
         type: actions.CHANGE_BIRTHDAY,
         payload: {
-            birthday
+            user_birthdate: birthdate
         }
     }
 }
@@ -51,7 +51,7 @@ export const changeEmail = email => {
     return {
         type: actions.CHANGE_EMAIL,
         payload: {
-            email
+            user_email: email
         }
     }
 }
@@ -65,12 +65,13 @@ export const registerNewUser = user => async dispatch => {
             data: user
         })
     } catch (error) {
-        if (error.response) {
+        if (error.response && error.response.data) {
             dispatch({
                 type: actions.ERROR_IN_NEW_USER,
                 payload: {
                     usernameError: error.response.data.username ? 'El usuario ya está en uso.' : '',
-                    emailError: error.response.data.email ? 'El email ya está en uso.' : ''
+                    emailError: error.response.data.email ? 'El email ya está en uso.' : '',
+                    messageError: error.response.data.error || ''
                 }
             })
         }

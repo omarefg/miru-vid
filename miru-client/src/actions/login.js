@@ -6,7 +6,7 @@ export const changeLoginUsername = username => {
     return {
         type: actions.CHANGE_LOGIN_USERNAME,
         payload: {
-            username
+            user_username: username
         }
     }
 }
@@ -15,7 +15,7 @@ export const changeLoginPassword = password => {
     return {
         type: actions.CHANGE_LOGIN_PASSWORD,
         payload: {
-            password
+            user_password: password
         }
     }
 }
@@ -58,7 +58,7 @@ export const changeLoginEmail = email => {
     return {
         type: actions.CHANGE_LOGIN_EMAIL,
         payload: {
-            email
+            user_email: email
         }
     }
 }

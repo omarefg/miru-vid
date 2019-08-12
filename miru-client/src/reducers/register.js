@@ -2,12 +2,12 @@ import * as actions from '../actions/types'
 
 const initialState = {
     user: {
-        name: '',
-        lastname: '',
-        birthday: '',
-        email: '',
-        username: '',
-        password: ''
+        user_name: '',
+        user_lastname: '',
+        user_birthdate: '',
+        user_email: '',
+        user_username: '',
+        user_password: ''
     },
     error: '',
     justRegistered: false

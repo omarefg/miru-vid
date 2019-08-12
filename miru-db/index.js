@@ -13,8 +13,8 @@ const startDB = async config => {
 
     for (const data of modelsData) {
         const { lib, model, name } = data
-        const modelSetup = libs[lib](config)
-        databases[name] = models[model](modelSetup)
+        const modelSetup = models[model](config)
+        databases[name] = libs[lib](modelSetup, sequelize)
     }
 
     await sequelize.authenticate()

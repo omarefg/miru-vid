@@ -28,12 +28,12 @@ const UserModel = {
         allowNull: false
     },
     user_email: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING(320),
         allowNull: false,
         unique: true
     },
     user_password: {
-        type: Sequelize.STRING(45),
+        type: Sequelize.STRING(500),
         allowNull: false
     },
     user_is_confirmed: {
@@ -50,6 +50,9 @@ const UserModel = {
         type: Sequelize.TINYINT(1),
         defaultValue: 1,
         allowNull: false
+    },
+    user_confirmed_at: {
+        type: Sequelize.DATE
     },
     createdAt: {
         field: 'user_created_at',

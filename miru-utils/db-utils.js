@@ -20,5 +20,13 @@ module.exports = {
         query: {
             raw: true
         }
+    },
+    createUpdateSQLByFields: fields => {
+        let statement = 'SET'
+        for (const field in fields) {
+            statement += ` ${field} = '${fields[field]}',`
+        }
+        statement = statement.replace(/,\s*$/, '')
+        return statement
     }
 }

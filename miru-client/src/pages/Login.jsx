@@ -63,7 +63,7 @@ class LoginPage extends Component {
 
     onSubmit = async event => {
         event.preventDefault()
-        const user = { username: this.props.username, password: this.props.password }
+        const user = { user_username: this.props.user_username, user_password: this.props.user_password }
         const session = await this.props.actions.login(user)
         localStorage.setItem('miru-session', JSON.stringify(session))
         this.props.history.push('/')
@@ -107,7 +107,7 @@ class LoginPage extends Component {
     sendConfirmationEmail = event => {
         event.preventDefault()
         this.props.actions.resendConfirmationFormMessageHandler()
-        this.props.actions.sendConfirmationEmail(this.props.email)
+        this.props.actions.sendConfirmationEmail(this.props.user_email)
     }
 
     componentDidUpdate () {
@@ -134,21 +134,21 @@ class LoginPage extends Component {
                     onSubmit={this.onSubmit}
                 >
                     <TextField
-                        id='username'
+                        id='miru-user-username'
                         label='Username'
                         type='Text'
                         margin='normal'
                         fullWidth
-                        value={this.props.username}
+                        value={this.props.user_username}
                         onChange={this.usernameHandler}
                         required
                     />
                     <Password
-                        id='password'
+                        id='miru-user-password'
                         label='Password'
                         margin='normal'
                         fullWidth
-                        value={this.props.password}
+                        value={this.props.user_password}
                         onChange={this.passwordHandler}
                         required
                     />

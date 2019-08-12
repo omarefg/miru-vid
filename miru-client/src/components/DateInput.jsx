@@ -25,6 +25,7 @@ export const DateInput = props => {
                 format='dd/MM/yyyy'
                 className={classes.input}
                 required={props.required}
+                animateYearScrolling
             />
         </MuiPickersUtilsProvider>
     )

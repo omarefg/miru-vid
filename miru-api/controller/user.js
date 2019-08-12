@@ -41,8 +41,8 @@ const confirmRegisteredUser = async (req, res, next) => {
 const sendConfirmationEmail = async (req, res, next) => {
     const { UserBusiness } = await createBusinesses()
     try {
-        await UserBusiness.sendRegistrationEmail(req.body.email)
-        return res.status(200).send(`Email sent to: ${req.body.email}`)
+        await UserBusiness.sendRegistrationEmail(req.body.user_email)
+        return res.status(200).send(`Email sent to: ${req.body.user_email}`)
     } catch (error) {
         return next(error)
     }

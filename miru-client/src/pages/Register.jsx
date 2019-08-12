@@ -6,7 +6,7 @@ import * as actions from '../actions'
 import { Helmet } from 'react-helmet'
 import { Form, Main, Password, DateInput } from '../components'
 import { TextField, Button } from '@material-ui/core'
-import { isSessionActive } from '../utils/general'
+import { isSessionActive, getYYYYMMDDFromDate } from '../utils/general'
 
 class RegisterPage extends Component {
     nameHandler = event => this.props.actions.changeName(event.target.value)
@@ -18,7 +18,9 @@ class RegisterPage extends Component {
 
     onSubmit = event => {
         event.preventDefault()
-        this.props.actions.registerNewUser(this.props.user)
+        const user = { ...this.props.user }
+        user.user_birthdate = getYYYYMMDDFromDate(user.user_birthdate)
+        this.props.actions.registerNewUser(user)
             .then(() => {
                 this.props.actions.justRegisteredHandler()
                 this.props.history.push('/inicia-sesion')
@@ -75,59 +77,59 @@ class RegisterPage extends Component {
                     onSubmit={this.onSubmit}
                 >
                     <TextField
-                        id='name'
+                        id='miru-user-name'
                         label='Name'
                         type='Text'
                         margin='normal'
                         fullWidth
-                        value={this.props.user.name}
+                        value={this.props.user.user_name}
                         onChange={this.nameHandler}
                         required
                     />
                     <TextField
-                        id='lastname'
+                        id='miru-user-lastname'
                         label='Last Name'
                         type='Text'
                         margin='normal'
                         fullWidth
-                        value={this.props.user.lastname}
+                        value={this.props.user.user_lastname}
                         onChange={this.lastnameHandler}
                         required
                     />
                     <TextField
-                        id='username'
+                        id='miru-user-username'
                         label='Username'
                         type='Text'
                         margin='normal'
                         fullWidth
-                        value={this.props.user.username}
+                        value={this.props.user.user_username}
                         onChange={this.usernameHandler}
                         required
                     />
                     <DateInput
-                        id='birthday'
+                        id='miru-user-birthdate'
                         label='Birthdate'
                         clearable
-                        value={this.props.user.birthday || new Date()}
+                        value={this.props.user.user_birthdate || new Date()}
                         onChange={this.birthdayHandler}
                         required
                     />
                     <TextField
-                        id='email'
+                        id='miru-user-email'
                         label='Email'
                         type='Text'
                         margin='normal'
                         fullWidth
-                        value={this.props.user.email}
+                        value={this.props.user.user_email}
                         onChange={this.emailHandler}
                         required
                     />
                     <Password
-                        id='password'
+                        id='miru-user-password'
                         label='Password'
                         margin='normal'
                         fullWidth
-                        value={this.props.user.password}
+                        value={this.props.user.user_password}
                         onChange={this.passwordHandler}
                         required
                     />
