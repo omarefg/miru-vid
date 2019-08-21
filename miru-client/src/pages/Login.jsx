@@ -6,7 +6,6 @@ import * as actions from '../actions'
 import { Helmet } from 'react-helmet'
 import { Form, Main, Password, FormMessage } from '../components'
 import { TextField, Button } from '@material-ui/core'
-import { isSessionActive } from '../utils/general'
 
 class LoginPage extends Component {
     usernameHandler = event => this.props.actions.changeLoginUsername(event.target.value)
@@ -66,6 +65,7 @@ class LoginPage extends Component {
         const user = { user_username: this.props.user_username, user_password: this.props.user_password }
         const session = await this.props.actions.login(user)
         localStorage.setItem('miru-session', JSON.stringify(session))
+        this.props.actions.hasSessionStatusHandler(JSON.stringify(session))
         this.props.history.push('/')
     }
 
@@ -114,11 +114,8 @@ class LoginPage extends Component {
         this.createSnackErrorMessages()
     }
 
-    componentWillMount () {
-        isSessionActive() && this.props.history.push('/')
-    }
-
     componentDidMount () {
+        this.props.hasSession && this.props.history.push('/')
         this.createMessageForJustRegisteredUser()
     }
 

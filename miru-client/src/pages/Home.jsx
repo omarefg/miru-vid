@@ -4,9 +4,15 @@ import * as actions from '../actions'
 import { Helmet } from 'react-helmet'
 import { connect } from 'react-redux'
 import { CardsSection, Main } from '../components'
+import { Redirect } from 'react-router-dom'
 
 class HomePage extends Component {
     render () {
+        console.log(this.props.hasSession)
+        if (!this.props.hasSession) {
+            return <Redirect to='/inicia-sesion'/>
+        }
+
         return (
             <Main
                 isDrawerOpen={this.props.isDrawerOpen}

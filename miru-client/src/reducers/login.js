@@ -13,14 +13,16 @@ const login = (state = initialState, action) => {
     case actions.CHANGE_LOGIN_USERNAME: {
         return {
             ...state,
-            ...action.payload
+            ...action.payload,
+            error: ''
         }
     }
 
     case actions.CHANGE_LOGIN_PASSWORD: {
         return {
             ...state,
-            ...action.payload
+            ...action.payload,
+            error: ''
         }
     }
 
@@ -50,7 +52,8 @@ const login = (state = initialState, action) => {
     case actions.CHANGE_LOGIN_EMAIL: {
         return {
             ...state,
-            ...action.payload
+            ...action.payload,
+            error: ''
         }
     }
 

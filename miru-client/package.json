@@ -24,7 +24,7 @@
     "typeface-roboto": "0.0.54"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=7777 react-scripts start",
     "build": "react-scripts build",
     "serve": "node_modules/serve/bin/serve.js -s build",
     "test": "react-scripts test",

@@ -5,7 +5,6 @@ import * as actions from '../actions'
 import { makeStyles } from '@material-ui/core/styles'
 import { AppBar, Toolbar, Typography } from '@material-ui/core'
 import { LinkButton, To, SessionHeader } from './'
-import { isSessionActive } from '../utils/general'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -40,7 +39,7 @@ const HeaderComponent = props => {
 
     const showDrawerHandler = () => props.actions.drawerOpenStatusHandler()
 
-    if (isSessionActive()) {
+    if (props.hasSession) {
         return (
             <SessionHeader
                 menuId='primary-search-account-menu'

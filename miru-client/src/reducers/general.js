@@ -1,7 +1,8 @@
 import * as actions from '../actions/types'
 
 const initialState = {
-    isDrawerOpen: false
+    isDrawerOpen: false,
+    hasSession: localStorage.getItem('miru-session')
 }
 
 const general = (state = initialState, action) => {
@@ -10,6 +11,13 @@ const general = (state = initialState, action) => {
         return {
             ...state,
             isDrawerOpen: !state.isDrawerOpen
+        }
+    }
+
+    case actions.CHANGE_HAS_SESSION_STATUS: {
+        return {
+            ...state,
+            ...action.payload
         }
     }
 

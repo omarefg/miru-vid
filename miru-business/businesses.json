@@ -1,0 +1,12 @@
+[
+    {
+        "name": "UserBusiness",
+        "path": "./business/user",
+        "service": "User"
+    },
+    {
+        "name": "SectionBusiness",
+        "path": "./business/section",
+        "service": "Section"
+    }
+]

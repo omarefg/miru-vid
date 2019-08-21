@@ -30,14 +30,25 @@ export const login = user => async dispatch => {
         })
         return res.data
     } catch (error) {
-        dispatch({
-            type: actions.ERROR_IN_USER_LOGIN,
-            payload: {
-                notConfirmedError: error.response.data.notConfirmed ? 'El correo electrónico no ha sido confirmado.' : '',
-                usernameError: error.response.data.username ? 'El usuario no es correcto.' : '',
-                passwordError: error.response.data.password ? 'La contraseña no es correcta.' : ''
-            }
-        })
+        if (error.response && error.response.data) {
+            dispatch({
+                type: actions.ERROR_IN_USER_LOGIN,
+                payload: {
+                    notConfirmedError: error.response.data.notConfirmed ? 'El correo electrónico no ha sido confirmado.' : '',
+                    usernameError: error.response.data.username ? 'El usuario no es correcto.' : '',
+                    passwordError: error.response.data.password ? 'La contraseña no es correcta.' : '',
+                    messageError: error.response.data.error || ''
+                }
+            })
+        }
+        if (!error.response && error.message) {
+            dispatch({
+                type: actions.ERROR_IN_NEW_USER,
+                payload: {
+                    messageError: error.message
+                }
+            })
+        }
         throw error
     }
 }

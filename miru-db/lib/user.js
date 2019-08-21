@@ -13,13 +13,26 @@ const setupUserModel = (model, sql) => {
                 type: sql.QueryTypes.SELECT,
                 raw: true
             })
-            return user[0]
+            return user
         } catch (error) {
             throw error
         }
     }
 
-    const findAll = () => model.findAll()
+    const findAll = async () => {
+        try {
+            const users = await sql.query(`
+                SELECT * FROM users
+            `,
+            {
+                type: sql.QueryTypes.SELECT,
+                raw: true
+            })
+            return users
+        } catch (error) {
+            throw error
+        }
+    }
 
     const updateUser = async user => {
         const fields = { ...user }
@@ -44,7 +57,7 @@ const setupUserModel = (model, sql) => {
                 type: sql.QueryTypes.SELECT
             })
 
-            return updated[0]
+            return updated
         } catch (error) {
             throw error
         }
@@ -61,25 +74,70 @@ const setupUserModel = (model, sql) => {
         }
     }
 
-    const findByUsername = username => {
-        const cond = { where: { user_username: username } }
-        return model.findAll(cond)
+    const findByUsername = async username => {
+        try {
+            const user = await sql.query(`
+                SELECT * FROM users
+                WHERE user_username = '${username}'
+            `,
+            {
+                type: sql.QueryTypes.SELECT,
+                raw: true
+            })
+            return user
+        } catch (error) {
+            throw error
+        }
     }
 
-    const findByUsernameAndPassword = user => {
+    const findByUsernameAndPassword = async user => {
         const { username, password } = user
-        const cond = { where: { user_username: username, user_password: password } }
-        return model.findOne(cond)
+        try {
+            const user = await sql.query(`
+                SELECT * FROM users
+                WHERE user_username = '${username}'
+                AND user_password = '${password}'
+            `,
+            {
+                type: sql.QueryTypes.SELECT,
+                raw: true
+            })
+            return user
+        } catch (error) {
+            throw error
+        }
     }
 
-    const findByEmail = email => {
-        const cond = { where: { user_email: email } }
-        return model.findAll(cond)
+    const findByEmail = async email => {
+        try {
+            const user = await sql.query(`
+                SELECT * FROM users
+                WHERE user_email = '${email}'
+            `,
+            {
+                type: sql.QueryTypes.SELECT,
+                raw: true
+            })
+            return user
+        } catch (error) {
+            throw error
+        }
     }
 
-    const findByPassword = password => {
-        const cond = { where: { user_password: password } }
-        return model.findAll(cond)
+    const findByPassword = async password => {
+        try {
+            const user = await sql.query(`
+                SELECT * FROM users
+                WHERE user_password = '${password}'
+            `,
+            {
+                type: sql.QueryTypes.SELECT,
+                raw: true
+            })
+            return user
+        } catch (error) {
+            throw error
+        }
     }
 
     return {

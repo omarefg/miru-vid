@@ -49,18 +49,26 @@ const UserBusiness = (debug, UserModel) => {
     const login = async body => {
         let user, username, password, match
         let errors = { notConfirmed: false, username: false, password: false }
+        const error = new Error()
+
         try {
             username = await UserModel.findByUsername(body.user_username)
+            if (!username.length) {
+                errors.username = true
+                error.objError = errors
+                throw error
+            }
             match = await bcrypt.compare(body.user_password, username[0].user_password)
             if (match) {
-                body.user_password = username[0].user_password
-                user = await UserModel.findByUsernameAndPassword(body)
-                password = await UserModel.findByPassword(body.user_password)
-                if (user && !user.confirmed) { errors.notConfirmed = true }
-                if (!username.length) { errors.username = true }
-                if (!password.length) { errors.password = true }
-                if (errors.notConfirmed || errors.username || errors.password) {
-                    const error = new Error()
+                user = await UserModel.findByUsernameAndPassword({ username: body.user_username, password: username[0].user_password })
+                if (user.length && !user[0].user_is_confirmed) {
+                    errors.notConfirmed = true
+                    error.objError = errors
+                    throw error
+                }
+                password = await UserModel.findByPassword(username[0].user_password)
+                if (!password.length) {
+                    errors.password = true
                     error.objError = errors
                     throw error
                 }
@@ -73,8 +81,11 @@ const UserBusiness = (debug, UserModel) => {
         } catch (error) {
             throw error
         }
+        user = user[0]
         delete user.user_password
-        delete user.user_confirmed
+        delete user.user_is_confirmed
+        delete user.user_confirmed_at
+        delete user.user_is_active
         delete user.user_created_at
         delete user.user_updated_at
         return user

@@ -6,7 +6,7 @@ import * as actions from '../actions'
 import { Helmet } from 'react-helmet'
 import { Form, Main, Password, DateInput } from '../components'
 import { TextField, Button } from '@material-ui/core'
-import { isSessionActive, getYYYYMMDDFromDate } from '../utils/general'
+import { getYYYYMMDDFromDate } from '../utils/general'
 
 class RegisterPage extends Component {
     nameHandler = event => this.props.actions.changeName(event.target.value)
@@ -61,8 +61,8 @@ class RegisterPage extends Component {
         this.createSnacks()
     }
 
-    componentWillMount () {
-        isSessionActive() && this.props.history.push('/')
+    componentDidMount () {
+        this.props.hasSession && this.props.history.push('/')
     }
 
     render () {
@@ -142,7 +142,8 @@ class RegisterPage extends Component {
 const mapStateToProps = state => {
     return {
         ...state.register,
-        user: { ...state.register.user }
+        user: { ...state.register.user },
+        ...state.general
     }
 }
 

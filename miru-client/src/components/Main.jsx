@@ -23,10 +23,16 @@ const useStyles = makeStyles(theme => ({
 
 export const Main = props => {
     const classes = useStyles()
+    const className = clsx(
+        classes.main,
+        {
+            [classes.mainShift]: props.isDrawerOpen
+        }
+    )
 
     return (
         <div
-            className={clsx(classes.main, { [classes.mainShift]: props.isDrawerOpen })}
+            className={className}
         >
             {props.children}
         </div>

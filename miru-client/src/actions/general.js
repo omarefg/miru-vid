@@ -5,3 +5,12 @@ export const drawerOpenStatusHandler = () => {
         type: actions.CHANGE_DRAWER_OPEN_STATUS
     }
 }
+
+export const hasSessionStatusHandler = hasSession => {
+    return {
+        type: actions.CHANGE_HAS_SESSION_STATUS,
+        payload: {
+            hasSession
+        }
+    }
+}

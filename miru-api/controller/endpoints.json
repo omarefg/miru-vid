@@ -19,5 +19,18 @@
                 "post": "sendConfirmationEmail"
             }
         ]
+    },
+    "section": {
+        "path": "section",
+        "urls": [
+            {
+                "url": "/section",
+                "get": "getAll"
+            },
+            {
+                "url": "/section/:id",
+                "get": "getSectionById"
+            }
+        ]
     }
 }
